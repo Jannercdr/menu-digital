@@ -52,6 +52,17 @@ async function handleLogin(e) {
     window.location.href = 'dashboard.html';
 }
 
+// Generar slug automáticamente desde el nombre del restaurante
+function generateSlug(nombre) {
+    return nombre
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // quitar tildes
+        .replace(/[^a-z0-9\s-]/g, '')  // solo letras, números, espacios y guiones
+        .trim()
+        .replace(/\s+/g, '-')          // espacios → guiones
+        .replace(/-+/g, '-');          // guiones dobles → uno
+}
+
 // REGISTER
 async function handleRegister(e) {
     e.preventDefault();
@@ -60,16 +71,16 @@ async function handleRegister(e) {
     const successEl = document.getElementById('register-success');
 
     const nombre = document.getElementById('reg-nombre').value.trim();
-    const slug = document.getElementById('reg-slug').value.trim().toLowerCase();
     const email = document.getElementById('reg-email').value.trim();
     const password = document.getElementById('reg-password').value;
 
     errorEl.classList.remove('show');
     successEl.classList.remove('show');
 
-    // Validar slug
-    if (!/^[a-z0-9\-]+$/.test(slug)) {
-        errorEl.textContent = 'El slug solo puede tener letras minúsculas, números y guiones.';
+    // Generar slug automáticamente
+    let slug = generateSlug(nombre);
+    if (!slug) {
+        errorEl.textContent = 'El nombre del restaurante no es válido.';
         errorEl.classList.add('show');
         return;
     }
@@ -77,7 +88,7 @@ async function handleRegister(e) {
     btn.disabled = true;
     btn.querySelector('.btn-text').textContent = 'Creando cuenta...';
 
-    // Verificar si el slug ya existe
+    // Si el slug ya existe, agregar un número aleatorio
     const { data: existing } = await supabase
         .from('restaurantes')
         .select('id')
@@ -85,11 +96,7 @@ async function handleRegister(e) {
         .single();
 
     if (existing) {
-        errorEl.textContent = 'Ese identificador (slug) ya está en uso. Elige otro.';
-        errorEl.classList.add('show');
-        btn.disabled = false;
-        btn.querySelector('.btn-text').textContent = 'Crear cuenta gratis';
-        return;
+        slug = slug + '-' + Math.floor(Math.random() * 9000 + 1000);
     }
 
     // Crear usuario en Supabase Auth
