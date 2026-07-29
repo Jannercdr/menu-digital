@@ -49,12 +49,22 @@ html, body {
     color: var(--text-primary);
     min-height: 100vh;
     line-height: 1.5;
+    overflow-x: hidden; /* Solo bloquear scroll horizontal */
 }
 
 /* ============================================================
    AUTH PAGE
    ============================================================ */
-.auth-page { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; position: relative; overflow: hidden; }
+.auth-page {
+    display: flex;
+    align-items: flex-start;       /* No centrar — permite scroll natural */
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 24px;            /* Espacio arriba y abajo */
+    position: relative;
+    /* overflow: hidden eliminado para permitir scroll */
+}
+
 
 .auth-bg { position: fixed; inset: 0; z-index: 0; }
 .auth-glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.4; }
