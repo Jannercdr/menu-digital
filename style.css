@@ -1,5 +1,10 @@
 :root {
-    --primary-color: #000000; /* Negro elegante */
+    /* Colores base del restaurante (sobreescritos dinámicamente por JS) */
+    --color-primary:   #e63946;
+    --color-secondary: #f4a261;
+
+    /* Alias para compatibilidad con el CSS existente */
+    --primary-color: var(--color-primary);
     --primary-hover: #222222;
     --bg-color: #FAFAFA;
     --surface-color: #FFFFFF;
@@ -13,6 +18,16 @@
     --radius-lg: 20px;
     --transition: all 0.3s ease;
 }
+
+/* Spinner de carga para el menú público */
+.spinner-public {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 3px solid #e5e7eb;
+    border-top-color: var(--color-primary);
+    animation: spin-public 0.7s linear infinite;
+    margin: 0 auto;
+}
+@keyframes spin-public { to { transform: rotate(360deg); } }
 
 * {
     margin: 0;

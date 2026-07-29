@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MenuDigital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="sidebar-logo-icon"><i class="fa-solid fa-utensils"></i></div>
+            <div>
+                <div class="sidebar-logo-text">MenuDigital</div>
+                <div class="sidebar-logo-sub">Panel de control</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section-title">Principal</div>
+            <button class="nav-item active" onclick="showSection('inicio')">
+                <i class="fa-solid fa-house"></i> Inicio
+            </button>
+            <button class="nav-item" onclick="showSection('menu')">
+                <i class="fa-solid fa-utensils"></i> Productos
+            </button>
+            <button class="nav-item" onclick="showSection('categorias')">
+                <i class="fa-solid fa-tags"></i> Categorías
+            </button>
+            <button class="nav-item" onclick="showSection('sedes')">
+                <i class="fa-solid fa-map-location-dot"></i> Sedes
+            </button>
+
+            <div class="nav-section-title">Apariencia</div>
+            <button class="nav-item" onclick="showSection('banners')">
+                <i class="fa-solid fa-images"></i> Banners
+            </button>
+            <button class="nav-item" onclick="showSection('config')">
+                <i class="fa-solid fa-sliders"></i> Configuración
+            </button>
+
+            <div class="nav-section-title">Otros</div>
+            <button class="nav-item" id="preview-btn">
+                <i class="fa-solid fa-eye"></i> Ver Menú Público
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sidebar-restaurant-badge">
+                <div class="sidebar-restaurant-avatar" id="sidebar-avatar">🍽️</div>
+                <div>
+                    <div class="sidebar-restaurant-name" id="sidebar-name">Cargando...</div>
+                    <div class="sidebar-restaurant-slug" id="sidebar-slug"></div>
+                </div>
+            </div>
+            <button class="btn btn-ghost" style="width:100%" onclick="handleLogout()">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <div class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <div>
+                <div class="topbar-title" id="topbar-title">Inicio</div>
+                <div class="topbar-subtitle" id="topbar-subtitle">Resumen de tu restaurante</div>
+            </div>
+            <div class="topbar-right">
+                <button class="btn-icon" title="Menú público" id="topbar-preview-btn">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="page-content">
+
+            <!-- ===========================
+                 SECCIÓN: INICIO
+            ============================ -->
+            <section class="page-section active" id="section-inicio">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i class="fa-solid fa-box"></i></div>
+                        <div class="stat-value" id="stat-productos">0</div>
+                        <div class="stat-label">Productos activos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fa-solid fa-tags"></i></div>
+                        <div class="stat-value" id="stat-categorias">0</div>
+                        <div class="stat-label">Categorías</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fa-solid fa-store"></i></div>
+                        <div class="stat-value" id="stat-sedes">0</div>
+                        <div class="stat-label">Sedes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fa-solid fa-images"></i></div>
+                        <div class="stat-value" id="stat-banners">0</div>
+                        <div class="stat-label">Banners</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🚀 Enlace público de tu menú</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size:13px; color: var(--text-muted); margin-bottom: 14px;">Comparte este enlace con tus clientes:</p>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <input type="text" id="public-link" readonly
+                                style="flex:1; background: var(--bg-elevated); border:1px solid var(--border); border-radius:8px; padding:10px 14px; color:var(--text-primary); font-size:13px; font-family:'Outfit',sans-serif;">
+                            <button class="btn btn-primary" onclick="copyPublicLink()">
+                                <i class="fa-solid fa-copy"></i> Copiar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===========================
+                 SECCIÓN: PRODUCTOS
+            ============================ -->
+            <section class="page-section" id="section-menu">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fa-solid fa-utensils" style="color:var(--accent-light);margin-right:8px"></i>Productos</div>
+                        <button class="btn btn-primary btn-sm" onclick="openProductModal()">
+                            <i class="fa-solid fa-plus"></i> Agregar producto
+                        </button>
+                    </div>
+                    <div id="productos-table-wrapper">
+                        <div class="loading-spinner"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===========================
+                 SECCIÓN: CATEGORÍAS
+            ============================ -->
+            <section class="page-section" id="section-categorias">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fa-solid fa-tags" style="color:var(--accent-light);margin-right:8px"></i>Categorías</div>
+                        <button class="btn btn-primary btn-sm" onclick="openCategoryModal()">
+                            <i class="fa-solid fa-plus"></i> Agregar categoría
+                        </button>
+                    </div>
+                    <div id="categorias-table-wrapper">
+                        <div class="loading-spinner"><div class="spinner"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===========================
+                 SECCIÓN: SEDES
+            ============================ -->
+            <section class="page-section" id="section-sedes">
+                <div style="display:flex; justify-content:flex-end; margin-bottom:16px;">
+                    <button class="btn btn-primary" onclick="openSedeModal()">
+                        <i class="fa-solid fa-plus"></i> Agregar sede
+                    </button>
+                </div>
+                <div class="sedes-grid" id="sedes-grid">
+                    <div class="loading-spinner"><div class="spinner"></div></div>
+                </div>
+            </section>
+
+            <!-- ===========================
+                 SECCIÓN: BANNERS
+            ============================ -->
+            <section class="page-section" id="section-banners">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fa-solid fa-images" style="color:var(--accent-light);margin-right:8px"></i>Banners del carrusel</div>
+                        <button class="btn btn-primary btn-sm" onclick="openBannerModal()">
+                            <i class="fa-solid fa-plus"></i> Agregar banner
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">Agrega las URLs de imágenes que aparecerán en el carrusel principal de tu menú.</p>
+                        <div class="banners-list" id="banners-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===========================
+                 SECCIÓN: CONFIGURACIÓN
+            ============================ -->
+            <section class="page-section" id="section-config">
+                <div class="card" style="max-width:680px">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fa-solid fa-sliders" style="color:var(--accent-light);margin-right:8px"></i>Configuración del restaurante</div>
+                    </div>
+                    <div class="card-body">
+                        <form id="config-form" onsubmit="saveConfig(event)" style="display:flex; flex-direction:column; gap:18px;">
+
+                            <div class="form-row">
+                                <div class="form-group-dash">
+                                    <label>Nombre del restaurante</label>
+                                    <input type="text" id="cfg-nombre" placeholder="Ej: Burger House" required>
+                                </div>
+                                <div class="form-group-dash">
+                                    <label>Sitio web</label>
+                                    <input type="url" id="cfg-web" placeholder="https://...">
+                                </div>
+                            </div>
+
+                            <div class="form-group-dash">
+                                <label>URL del Logo</label>
+                                <div class="img-preview-wrapper">
+                                    <input type="url" id="cfg-logo" placeholder="https://... (URL de imagen)" oninput="previewLogo(this.value)">
+                                    <img id="logo-preview" class="img-preview" src="" alt="Logo">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group-dash">
+                                    <label>Color primario</label>
+                                    <div class="color-input-wrapper">
+                                        <input type="color" id="cfg-color1-picker" oninput="document.getElementById('cfg-color1').value=this.value">
+                                        <input type="text" id="cfg-color1" placeholder="#e63946" oninput="document.getElementById('cfg-color1-picker').value=this.value">
+                                    </div>
+                                </div>
+                                <div class="form-group-dash">
+                                    <label>Color secundario</label>
+                                    <div class="color-input-wrapper">
+                                        <input type="color" id="cfg-color2-picker" oninput="document.getElementById('cfg-color2').value=this.value">
+                                        <input type="text" id="cfg-color2" placeholder="#f4a261" oninput="document.getElementById('cfg-color2-picker').value=this.value">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group-dash">
+                                <label>Costo de domicilio (pesos)</label>
+                                <input type="number" id="cfg-domicilio" placeholder="5000" min="0">
+                            </div>
+
+                            <div class="form-group-dash">
+                                <label>WhatsApp Servicio al cliente (con código de país)</label>
+                                <input type="text" id="cfg-whatsapp" placeholder="573001234567">
+                            </div>
+
+                            <fieldset style="border:1px solid var(--border); border-radius:8px; padding:16px;">
+                                <legend style="font-size:12px; font-weight:700; color:var(--text-muted); padding:0 8px; text-transform:uppercase;">Redes Sociales</legend>
+                                <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+                                    <div class="form-group-dash">
+                                        <label><i class="fa-brands fa-instagram"></i> Instagram (usuario)</label>
+                                        <input type="text" id="cfg-instagram" placeholder="@mi_restaurante">
+                                    </div>
+                                    <div class="form-group-dash">
+                                        <label><i class="fa-brands fa-facebook-f"></i> Facebook (usuario)</label>
+                                        <input type="text" id="cfg-facebook" placeholder="mirestaurante">
+                                    </div>
+                                    <div class="form-group-dash">
+                                        <label><i class="fa-brands fa-tiktok"></i> TikTok (usuario)</label>
+                                        <input type="text" id="cfg-tiktok" placeholder="@mi_restaurante">
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Guardar configuración
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- /page-content -->
+    </div><!-- /main-content -->
+</div><!-- /dashboard-layout -->
+
+<!-- ===========================
+     MODAL: PRODUCTO
+============================ -->
+<div class="modal-overlay" id="modal-producto">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modal-producto-title">Agregar producto</div>
+            <button class="modal-close" onclick="closeModal('modal-producto')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="prod-id">
+            <div class="form-row">
+                <div class="form-group-dash">
+                    <label>Nombre *</label>
+                    <input type="text" id="prod-nombre" placeholder="Ej: Hamburguesa Doble" required>
+                </div>
+                <div class="form-group-dash">
+                    <label>Precio (pesos) *</label>
+                    <input type="number" id="prod-precio" placeholder="25900" min="0" required>
+                </div>
+            </div>
+            <div class="form-group-dash">
+                <label>Descripción</label>
+                <textarea id="prod-descripcion" placeholder="Descripción del producto..."></textarea>
+            </div>
+            <div class="form-group-dash">
+                <label>Categoría *</label>
+                <select id="prod-categoria" required>
+                    <option value="">— Selecciona una categoría —</option>
+                </select>
+            </div>
+            <div class="form-group-dash">
+                <label>URL de imagen</label>
+                <div class="img-preview-wrapper">
+                    <input type="url" id="prod-imagen" placeholder="https://..." oninput="previewImage('prod-imagen','prod-img-preview')">
+                    <img id="prod-img-preview" class="img-preview" src="" alt="Preview">
+                </div>
+            </div>
+            <div class="toggle-wrapper">
+                <label class="toggle">
+                    <input type="checkbox" id="prod-disponible" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Producto disponible</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('modal-producto')">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveProducto()">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===========================
+     MODAL: CATEGORÍA
+============================ -->
+<div class="modal-overlay" id="modal-categoria">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modal-cat-title">Agregar categoría</div>
+            <button class="modal-close" onclick="closeModal('modal-categoria')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="cat-id">
+            <div class="form-group-dash">
+                <label>Nombre de la categoría *</label>
+                <input type="text" id="cat-nombre" placeholder="Ej: Hamburguesas, Combos, Bebidas..." required>
+            </div>
+            <div class="form-group-dash">
+                <label>Orden de aparición</label>
+                <input type="number" id="cat-orden" placeholder="0" min="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('modal-categoria')">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveCategoria()">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===========================
+     MODAL: SEDE
+============================ -->
+<div class="modal-overlay" id="modal-sede">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" id="modal-sede-title">Agregar sede</div>
+            <button class="modal-close" onclick="closeModal('modal-sede')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="sede-id">
+            <div class="form-row">
+                <div class="form-group-dash">
+                    <label>Ciudad *</label>
+                    <input type="text" id="sede-ciudad" placeholder="Ej: Medellín" required>
+                </div>
+                <div class="form-group-dash">
+                    <label>Nombre de la sede *</label>
+                    <input type="text" id="sede-nombre" placeholder="Ej: Sede Centro" required>
+                </div>
+            </div>
+            <div class="form-group-dash">
+                <label>Teléfono WhatsApp (con código de país) *</label>
+                <input type="text" id="sede-telefono" placeholder="573001234567" required>
+            </div>
+            <div class="form-group-dash">
+                <label>Dirección</label>
+                <input type="text" id="sede-direccion" placeholder="Calle 123 # 45 - 67">
+            </div>
+            <div class="form-group-dash">
+                <label>Horario de atención</label>
+                <textarea id="sede-horario" placeholder="Lunes a Viernes: 10:00 - 22:00&#10;Sábado y Domingo: 11:00 - 23:00"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('modal-sede')">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveSede()">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===========================
+     MODAL: BANNER
+============================ -->
+<div class="modal-overlay" id="modal-banner">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Agregar banner</div>
+            <button class="modal-close" onclick="closeModal('modal-banner')"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group-dash">
+                <label>URL de la imagen *</label>
+                <div class="img-preview-wrapper">
+                    <input type="url" id="banner-url" placeholder="https://... (imagen panorámica)" oninput="previewImage('banner-url','banner-img-preview')">
+                    <img id="banner-img-preview" class="img-preview" src="" alt="Preview" style="width:80px; height:42px;">
+                </div>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted);">Recomendado: imágenes horizontales (1400x400px aprox.)</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeModal('modal-banner')">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveBanner()">
+                <i class="fa-solid fa-floppy-disk"></i> Agregar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast notifications -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase-config.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenuDigital - Acceso para Restaurantes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="auth-page">
+
+    <div class="auth-bg">
+        <div class="auth-glow auth-glow-1"></div>
+        <div class="auth-glow auth-glow-2"></div>
+    </div>
+
+    <div class="auth-container">
+        <!-- Logo -->
+        <div class="auth-logo">
+            <div class="auth-logo-icon"><i class="fa-solid fa-utensils"></i></div>
+            <h1 class="auth-logo-text">MenuDigital</h1>
+            <p class="auth-logo-sub">Plataforma para restaurantes</p>
+        </div>
+
+        <!-- Tabs: Login / Register -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tab-login" onclick="showTab('login')">Iniciar sesión</button>
+            <button class="auth-tab" id="tab-register" onclick="showTab('register')">Registrarse</button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="auth-form-wrapper" id="form-login">
+            <form class="auth-form" id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-envelope"></i> Correo electrónico</label>
+                    <input type="email" id="login-email" placeholder="correo@turestaurante.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-lock"></i> Contraseña</label>
+                    <div class="input-password-wrapper">
+                        <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="toggle-password" onclick="togglePassword('login-password', this)">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="auth-error" id="login-error"></div>
+                <button type="submit" class="btn-auth" id="login-btn">
+                    <span class="btn-text">Entrar al Dashboard</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div class="auth-form-wrapper hidden" id="form-register">
+            <form class="auth-form" id="register-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-store"></i> Nombre del restaurante</label>
+                    <input type="text" id="reg-nombre" placeholder="Ej: Burger House" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-link"></i> Identificador URL (slug)</label>
+                    <div class="input-slug-wrapper">
+                        <span class="slug-prefix">menudigital.com/</span>
+                        <input type="text" id="reg-slug" placeholder="mi-restaurante" required pattern="[a-z0-9\-]+" title="Solo letras minúsculas, números y guiones">
+                    </div>
+                    <small class="field-hint">Solo minúsculas, números y guiones. Ej: burger-house</small>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-envelope"></i> Correo electrónico</label>
+                    <input type="email" id="reg-email" placeholder="correo@turestaurante.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-lock"></i> Contraseña</label>
+                    <div class="input-password-wrapper">
+                        <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password">
+                        <button type="button" class="toggle-password" onclick="togglePassword('reg-password', this)">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="auth-error" id="register-error"></div>
+                <div class="auth-success" id="register-success"></div>
+                <button type="submit" class="btn-auth" id="register-btn">
+                    <span class="btn-text">Crear cuenta gratis</span>
+                    <i class="fa-solid fa-rocket"></i>
+                </button>
+            </form>
+        </div>
+
+        <p class="auth-footer-text">
+            Al registrarte aceptas que tus datos sean almacenados de forma segura.
+        </p>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabase-config.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>
