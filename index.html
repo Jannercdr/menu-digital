@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tierra Querida - Menú Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://tofuu.getjusto.com/orioneat-local/resized2/9AuoZaEay2eYY4HBa-208-x.webp" alt="Tierra Querida Logo" class="logo">
+            </div>
+            
+            <nav class="header-nav">
+                <a href="landing.html" class="nav-link">Inicio</a>
+                <a href="index.html" class="nav-link active">Pedir</a>
+                <a href="sedes.html" class="nav-link">Sedes</a>
+            </nav>
+
+            <div class="header-actions">
+                
+                <div class="sede-selector">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <select id="ciudad-select">
+                        <option value="" disabled selected>Ciudad</option>
+                    </select>
+                    <i class="fa-solid fa-store" style="margin-left: 8px;"></i>
+                    <select id="sede-select" disabled>
+                        <option value="" disabled selected>Sede</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Carousel Banners -->
+        <div class="carousel-container">
+            <div class="carousel-slide fade">
+                <img src="https://tofuu.getjusto.com/orioneat-local/resized2/74k4hN4KFmsEmYdYx-x-1400.webp" alt="Promoción 1">
+            </div>
+            <div class="carousel-slide fade" style="display: none;">
+                <img src="https://tofuu.getjusto.com/orioneat-local/resized2/mgr7CbP2YnSq5m3Kp-x-1400.webp" alt="Promoción 2">
+            </div>
+            <div class="carousel-slide fade" style="display: none;">
+                <img src="https://tofuu.getjusto.com/orioneat-local/resized2/yAmSPAHdGZ3q2aFaa-x-1400.webp" alt="Promoción 3">
+            </div>
+            
+            <!-- Carousel indicators -->
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+        <div class="desktop-split">
+        <div class="menu-container" id="menu-container">
+            <!-- Categories and Products loaded dynamically -->
+        </div>
+
+        <!-- Shopping Cart Sidebar -->
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h2>Tu Pedido</h2>
+                <button class="close-btn" id="close-cart-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-body" id="cart-items">
+                <!-- Cart items loaded dynamically -->
+                <div class="empty-cart-message">Tu carrito está vacío 🍔</div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">$ 0</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Domicilio</span>
+                        <span id="cart-domicilio">$ 0</span>
+                    </div>
+                    <div class="summary-line total-line">
+                        <span>Total</span>
+                        <span id="cart-total">$ 0</span>
+                    </div>
+                </div>
+                <button class="btn-primary w-100" id="checkout-btn" disabled>Continuar con el pago</button>
+            </div>
+        </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col brand-col">
+                <img src="https://tofuu.getjusto.com/orioneat-local/resized2/9AuoZaEay2eYY4HBa-208-x.webp" alt="Tierra Querida" class="footer-logo">
+                <p class="footer-tagline">El sabor que conquistó el corazón de todos los Colombianos.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Conócenos</h3>
+                <ul>
+                    <li><a href="#">Trabaja con nosotros</a></li>
+                    <li><a href="#">Efecto TQ</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Redes sociales</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/tierraquerida_co" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                    <li><a href="https://www.facebook.com/tierraqueridaco" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="https://www.tiktok.com/@tierraquerida_co" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Mi cuenta</h3>
+                <ul>
+                    <li><a href="index.html">Pedir</a></li>
+                    <li><a href="#">Mis pedidos</a></li>
+                    <li><a href="#">Mis direcciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Tierra Querida. Todos los derechos reservados. Desarrollado con ❤️</p>
+        </div>
+    </footer>
+
+    <!-- Product Customization Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content product-modal-content">
+            <button class="close-btn" id="close-product-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div id="product-modal-body">
+                <!-- Product details and options loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <div class="qty-selector">
+                    <button id="modal-qty-minus"><i class="fa-solid fa-minus"></i></button>
+                    <span id="modal-qty">1</span>
+                    <button id="modal-qty-plus"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <button class="btn-primary" style="flex-grow: 1;" id="add-to-cart-btn">Agregar <span id="modal-total-price"></span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Location Modal -->
+    <div class="modal-overlay active" id="welcome-modal">
+        <div class="modal-content welcome-modal-content">
+            <div class="welcome-banner">
+                <img src="https://tofuu.getjusto.com/orioneat-local/resized2/74k4hN4KFmsEmYdYx-x-1400.webp" alt="Tierra Querida Banner">
+            </div>
+            <div class="welcome-inner">
+                <div class="welcome-header">
+                    <h2>¡Bienvenido a Tierra Querida! 🇨🇴</h2>
+                    <p>Para brindarte el mejor servicio y precios exactos, selecciona tu ubicación antes de ordenar.</p>
+                </div>
+                <div class="welcome-body">
+                    <div class="form-group welcome-group">
+                        <label><i class="fa-solid fa-map-location-dot"></i> Ciudad</label>
+                        <select id="welcome-ciudad-select" class="welcome-select">
+                            <option value="" disabled selected>Selecciona tu ciudad</option>
+                        </select>
+                    </div>
+                    <div class="form-group welcome-group">
+                        <label><i class="fa-solid fa-store"></i> Sede</label>
+                        <select id="welcome-sede-select" class="welcome-select" disabled>
+                            <option value="" disabled selected>Primero selecciona una ciudad</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary w-100 welcome-btn" id="welcome-continue-btn" disabled>Ver Menú</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-content checkout-modal-content">
+            <button class="close-btn" id="close-checkout-modal"><i class="fa-solid fa-xmark"></i></button>
+            <h2>Finalizar Pedido</h2>
+            <p class="checkout-subtitle">Completa tus datos para enviar el pedido por WhatsApp</p>
+            
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label>Tipo de servicio</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="tipo_servicio" value="Domicilio" checked> Domicilio
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="tipo_servicio" value="Recoger en tienda"> Recoger en tienda
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="cliente-nombre">Nombre completo *</label>
+                    <input type="text" id="cliente-nombre" required placeholder="Ej: Juan Pérez">
+                </div>
+
+                <div class="form-group">
+                    <label for="cliente-telefono">Teléfono *</label>
+                    <input type="tel" id="cliente-telefono" required placeholder="Ej: 3001234567">
+                </div>
+
+                <div class="form-group" id="direccion-group">
+                    <label for="cliente-direccion">Dirección de entrega *</label>
+                    <input type="text" id="cliente-direccion" required placeholder="Ej: Calle 123 # 45 - 67">
+                </div>
+
+                <div class="form-group">
+                    <label>Método de Pago *</label>
+                    <select id="metodo-pago" required>
+                        <option value="Transferencia">Transferencia Bancaria</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Datafono">Datáfono al entregar</option>
+                    </select>
+                </div>
+
+                <div class="checkout-total-banner">
+                    <span>Total a pagar:</span>
+                    <span id="checkout-final-total">$ 0</span>
+                </div>
+
+                <button type="submit" class="btn-primary w-100 btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp"></i> Realizar Pedido por WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overlay backdrops -->
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- Mobile Floating Cart Button -->
+    <div class="mobile-floating-cart" id="mobile-floating-cart">
+        <div class="floating-cart-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge floating-badge" id="floating-cart-badge">0</span>
+        </div>
+        <span class="floating-cart-total" id="floating-cart-total">$ 0</span>
+    </div>
+
+    <script src="data.js?v=2" charset="utf-8"></script>
+    <script src="app.js?v=3" charset="utf-8"></script>
+</body>
+</html>

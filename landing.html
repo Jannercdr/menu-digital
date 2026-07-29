@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tierra Querida - Enlaces Oficiales</title>
+    <!-- Google Fonts Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+    <div class="landing-wrapper">
+        <!-- Glow design details -->
+        <div class="glow-effect"></div>
+        <div class="glow-effect-bottom"></div>
+
+        <div class="landing-content">
+            
+            <!-- Profile Section -->
+            <header class="profile-section fade-in" style="animation-delay: 0.1s;">
+                <div class="logo-container">
+                    <img src="https://tofuu.getjusto.com/orioneat-local/resized2/9AuoZaEay2eYY4HBa-208-x.webp" alt="Tierra Querida Logo" class="logo-img">
+                </div>
+                <h1 class="brand-name">Tierra Querida</h1>
+                <p class="brand-bio">¡El sabor que conquistó el corazón de todos los Colombianos! 🔥🍔</p>
+            </header>
+
+            <!-- Social Links -->
+            <div class="social-links fade-in" style="animation-delay: 0.2s;">
+                <a href="https://www.instagram.com/tierraquerida_co" target="_blank" class="social-icon" title="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@tierraquerida_co" target="_blank" class="social-icon" title="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="https://www.facebook.com/tierraqueridaco" target="_blank" class="social-icon" title="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+            </div>
+
+            <!-- Featured Promo Banner -->
+            <a class="promo-banner fade-in" style="animation-delay: 0.3s;" href="#" onclick="selectSedeAndRedirect('tierraqueridaaranjuez', 'Tierra Querida Aranjuez', '573207663393', event)">
+                <span class="promo-title">🔥 Oferta Especial 🔥</span>
+                <span class="promo-text">PRUÉBALAS POR $16.900</span>
+            </a>
+
+            <!-- Action Enlaces -->
+            <div class="section-title fade-in" style="animation-delay: 0.35s;">Nuestros Servicios</div>
+            <div class="links-container fade-in" style="animation-delay: 0.4s;">
+                <a class="link-item featured" href="index.html">
+                    <i class="fa-solid fa-pizza-slice"></i>
+                    <span>Pide por nuestra página web</span>
+                    <span class="badge">Sin comisiones</span>
+                </a>
+                <a class="link-item" href="index.html">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Nuestro Menú</span>
+                </a>
+                <a class="link-item" href="https://www.rappi.com.co" target="_blank">
+                    <i class="fa-solid fa-motorcycle"></i>
+                    <span>Pide por Rappi</span>
+                </a>
+                <a class="link-item" href="https://www.didiglobal.com/co/food" target="_blank">
+                    <i class="fa-solid fa-bicycle"></i>
+                    <span>Pide por DiDi Food</span>
+                </a>
+                <a class="link-item" href="https://wa.me/573000000000" target="_blank" id="customer-service-link">
+                    <i class="fa-solid fa-headset"></i>
+                    <span>Línea de servicio al cliente</span>
+                </a>
+            </div>
+
+            <!-- Sede Accordion -->
+            <div class="section-title fade-in" style="animation-delay: 0.45s;">📍 Encuentra tu sede 📍</div>
+            <div class="sedes-accordion fade-in" style="animation-delay: 0.5s;">
+                
+                <!-- Antioquia Tab -->
+                <div class="region-tab">
+                    <button class="region-header">
+                        <span>📍 ANTIOQUIA</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="region-content">
+                        <div class="subregion-container">
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">Oriente Antioqueño</div>
+                                <div class="sedes-list" id="list-oriente"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">(Sur) Valle de Aburrá</div>
+                                <div class="sedes-list" id="list-sur-aburra"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">(Centro) Valle de Aburrá</div>
+                                <div class="sedes-list" id="list-centro-aburra"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">(Norte) Valle de Aburrá</div>
+                                <div class="sedes-list" id="list-norte-aburra"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-titlen">Urabá Antioqueño</div>
+                                <div class="sedes-list" id="list-uraba"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">+ Antioquia</div>
+                                <div class="sedes-list" id="list-mas-antioquia"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colombia Tab -->
+                <div class="region-tab">
+                    <button class="region-header">
+                        <span>📍 + COLOMBIA</span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="region-content">
+                        <div class="subregion-container">
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">Bogotá y Sabana</div>
+                                <div class="sedes-list" id="list-bogota"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">Eje Cafetero</div>
+                                <div class="sedes-list" id="list-eje-cafetero"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">Valle del Cauca</div>
+                                <div class="sedes-list" id="list-valle-cauca"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">Costa Caribe</div>
+                                <div class="sedes-list" id="list-costa"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">Santanderes</div>
+                                <div class="sedes-list" id="list-santander"></div>
+                            </div>
+                            
+                            <div class="subregion-block">
+                                <div class="subregion-title">+ Colombia</div>
+                                <div class="sedes-list" id="list-mas-colombia"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Combos Queridos & Recomendados -->
+            <div class="section-title fade-in" style="animation-delay: 0.55s;">🍟 Combos Queridos & Hamburguesas 🍔</div>
+            <div class="gallery-grid fade-in" style="animation-delay: 0.6s;">
+                
+                <!-- Combo Familiar -->
+                <div class="gallery-card" data-product-id="combo_familiar">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://tofuu.getjusto.com/orioneat-local/resized2/YQY7Co73yTQxuwHPo-300-x.webp" alt="Combo Familiar" class="gallery-img">
+                    </div>
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">Combo Familiar</div>
+                        <div class="gallery-card-price">$ 116.900</div>
+                    </div>
+                </div>
+
+                <!-- Combo Estudiantil -->
+                <div class="gallery-card" data-product-id="combo_estudiantil">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://tofuu.getjusto.com/orioneat-local/resized2/Wj9pPpNgpYmTFB8GD-300-x.webp" alt="Combo Estudiantil" class="gallery-img">
+                    </div>
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">Combo Estudiantil</div>
+                        <div class="gallery-card-price">$ 26.900</div>
+                    </div>
+                </div>
+
+                <!-- Combo Express -->
+                <div class="gallery-card" data-product-id="combo_express">
+                    <div class="gallery-img-wrapper">
+                        <img src="https://tofuu.getjusto.com/orioneat-local/resized2/XeP5pAhSzkeX3wRCJ-300-x.webp" alt="Combo Express" class="gallery-img">
+                    </div>
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">Combo Express</div>
+                        <div class="gallery-card-price">$ 26.900</div>
+                    </div>
+                </div>
+
+                <!-- Hamburguesa Triple -->
+                <div class="gallery-card" data-product-id="hamburguesa_triple">
+                    <div class="gallery-img-wrapper">
+                        <img src="hamburguesa-triple.webp" alt="Hamburguesa Triple" class="gallery-img">
+                    </div>
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">Hamburguesa Triple</div>
+                        <div class="gallery-card-price">$ 30.900</div>
+                    </div>
+                </div>
+
+                <!-- Hamburguesa Doble -->
+                <div class="gallery-card" data-product-id="hamburguesa_doble">
+                    <div class="gallery-img-wrapper">
+                        <img src="hamburguesa-doble.webp" alt="Hamburguesa Doble" class="gallery-img">
+                    </div>
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">Hamburguesa Doble</div>
+                        <div class="gallery-card-price">$ 25.900</div>
+                    </div>
+                </div>
+
+                <!-- Hamburguesa Sencilla -->
+                <div class="gallery-card" data-product-id="hamburguesa_sencilla">
+                    <div class="gallery-img-wrapper">
+                        <img src="hamburgeusa-sencilla.webp" alt="Hamburguesa Sencilla" class="gallery-img">
+                    </div>
+                    <div class="gallery-card-body">
+                        <div class="gallery-card-title">Hamburguesa Sencilla</div>
+                        <div class="gallery-card-price">$ 18.900</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer-section fade-in" style="animation-delay: 0.7s;">
+                <p>&copy; 2026 Tierra Querida. Desarrollado con ❤️</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Load scripts in order -->
+    <script src="data.js"></script>
+    <script src="landing.js"></script>
+</body>
+</html>

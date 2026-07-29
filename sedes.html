@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sedes - Tierra Querida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sedes-page {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .sedes-page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+
+        .ciudad-section {
+            margin-bottom: 50px;
+        }
+
+        .ciudad-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .sedes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .sede-card {
+            background: var(--surface-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .sede-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+        }
+
+        .sede-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .sede-info {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .sede-info i {
+            margin-top: 4px;
+            margin-right: 10px;
+            color: var(--primary-color);
+            width: 16px;
+        }
+        
+        .sede-horario {
+            white-space: pre-line;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="https://tofuu.getjusto.com/orioneat-local/resized2/9AuoZaEay2eYY4HBa-208-x.webp" alt="Tierra Querida Logo" class="logo">
+                </a>
+            </div>
+            <nav class="header-nav">
+                <a href="landing.html" class="nav-link">Inicio</a>
+                <a href="index.html" class="nav-link">Pedir</a>
+                <a href="sedes.html" class="nav-link active">Sedes</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="sedes-page">
+        <h1 class="sedes-page-title">Nuestras Sedes</h1>
+        <div id="sedes-container">
+            <!-- Renderizado desde sedes.js -->
+        </div>
+    </main>
+
+    <script src="data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('sedes-container');
+            
+            sedes.forEach(grupo => {
+                const section = document.createElement('div');
+                section.className = 'ciudad-section';
+                
+                const title = document.createElement('h2');
+                title.className = 'ciudad-title';
+                title.innerText = grupo.ciudad;
+                section.appendChild(title);
+                
+                const grid = document.createElement('div');
+                grid.className = 'sedes-grid';
+                
+                grupo.sedes.forEach(s => {
+                    const card = document.createElement('div');
+                    card.className = 'sede-card';
+                    
+                    const formatHorario = (horario) => {
+                        return horario.split(' | ').join('<br>');
+                    };
+
+                    card.innerHTML = \`
+                        <div class="sede-name">\${s.nombre}</div>
+                        \${s.distancia ? \`<div class="sede-info"><i class="fa-solid fa-route"></i> \${s.distancia}</div>\` : ''}
+                        <div class="sede-info">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>\${s.direccion}</div>
+                        </div>
+                        <div class="sede-info">
+                            <i class="fa-solid fa-phone"></i>
+                            <div><a href="https://wa.me/\${s.telefono}" target="_blank" style="color: var(--text-secondary); text-decoration: none;">+\${s.telefono}</a></div>
+                        </div>
+                        <div class="sede-info">
+                            <i class="fa-solid fa-clock"></i>
+                            <div class="sede-horario">\${formatHorario(s.horario)}</div>
+                        </div>
+                    \`;
+                    
+                    grid.appendChild(card);
+                });
+                
+                section.appendChild(grid);
+                container.appendChild(section);
+            });
+        });
+    </script>
+</body>
+</html>
