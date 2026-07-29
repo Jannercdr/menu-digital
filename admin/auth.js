@@ -104,7 +104,7 @@ async function handleRegister(e) {
         email,
         password,
         options: {
-            data: { nombre, slug } // metadata del usuario
+            data: { nombre, slug } // metadata guardada para crear el restaurante al confirmar
         }
     });
 
@@ -116,34 +116,43 @@ async function handleRegister(e) {
         return;
     }
 
-    // Crear registro en tabla restaurantes
-    const { error: dbError } = await supabase.from('restaurantes').insert({
-        user_id: data.user.id,
-        slug,
-        nombre,
-        color_primario: '#e63946',
-        color_secundario: '#f4a261',
-        domicilio: 5000,
-        redes: { instagram: '', facebook: '', tiktok: '' },
-        banners: []
-    });
+    // Guardar datos pendientes en localStorage por si necesitamos crearlos después
+    localStorage.setItem('pendingRestaurante', JSON.stringify({ nombre, slug }));
 
-    if (dbError) {
-        errorEl.textContent = 'Error al crear el restaurante: ' + dbError.message;
-        errorEl.classList.add('show');
+    // Si hay sesión inmediata (email confirm desactivado), crear el restaurante ya
+    if (data.session) {
+        const { error: dbError } = await supabase.from('restaurantes').insert({
+            user_id: data.user.id,
+            slug,
+            nombre,
+            color_primario: '#e63946',
+            color_secundario: '#f4a261',
+            domicilio: 5000,
+            redes: { instagram: '', facebook: '', tiktok: '' },
+            banners: []
+        });
+
+        if (dbError) {
+            // Si el restaurante ya existe (registro duplicado), continuar igual
+            if (!dbError.message.includes('duplicate') && !dbError.message.includes('unique')) {
+                errorEl.textContent = 'Error al crear el restaurante: ' + dbError.message;
+                errorEl.classList.add('show');
+                btn.disabled = false;
+                btn.querySelector('.btn-text').textContent = 'Crear cuenta gratis';
+                return;
+            }
+        }
+
+        localStorage.removeItem('pendingRestaurante');
+        successEl.textContent = '✅ ¡Cuenta creada! Entrando al dashboard...';
+        successEl.classList.add('show');
+        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+    } else {
+        // Requiere confirmación de email
+        successEl.textContent = '📧 ¡Cuenta creada! Revisa tu correo y confirma tu cuenta para entrar.';
+        successEl.classList.add('show');
         btn.disabled = false;
         btn.querySelector('.btn-text').textContent = 'Crear cuenta gratis';
-        return;
-    }
-
-    successEl.textContent = '✅ ¡Cuenta creada! Revisa tu correo para confirmar tu cuenta y luego inicia sesión.';
-    successEl.classList.add('show');
-    btn.disabled = false;
-    btn.querySelector('.btn-text').textContent = 'Crear cuenta gratis';
-
-    // Si no requiere confirmación de email (según config de Supabase), redirigir
-    if (data.session) {
-        setTimeout(() => { window.location.href = 'dashboard.html'; }, 1500);
     }
 }
 

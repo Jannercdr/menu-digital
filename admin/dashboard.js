@@ -22,14 +22,47 @@ async function init() {
     }
 
     // Cargar datos del restaurante del usuario
-    const { data: restaurante, error } = await supabase
+    let { data: restaurante, error } = await supabase
         .from('restaurantes')
         .select('*')
         .eq('user_id', session.user.id)
         .single();
 
-    if (error || !restaurante) {
-        showToast('Error al cargar el restaurante', 'error');
+    // Si no existe el restaurante pero hay datos pendientes del registro, crearlo ahora
+    if (!restaurante) {
+        const pendingRaw = localStorage.getItem('pendingRestaurante');
+        if (pendingRaw) {
+            const pending = JSON.parse(pendingRaw);
+            const { data: newRest, error: createErr } = await supabase
+                .from('restaurantes')
+                .insert({
+                    user_id: session.user.id,
+                    slug: pending.slug,
+                    nombre: pending.nombre,
+                    color_primario: '#e63946',
+                    color_secundario: '#f4a261',
+                    domicilio: 5000,
+                    redes: { instagram: '', facebook: '', tiktok: '' },
+                    banners: []
+                })
+                .select()
+                .single();
+
+            if (!createErr && newRest) {
+                restaurante = newRest;
+                localStorage.removeItem('pendingRestaurante');
+            }
+        }
+    }
+
+    if (error && !restaurante) {
+        showToast('Error al cargar el restaurante. Intenta de nuevo.', 'error');
+        return;
+    }
+
+    if (!restaurante) {
+        showToast('No se encontró tu restaurante. Intenta registrarte de nuevo.', 'error');
+        setTimeout(() => { window.location.href = 'index.html'; }, 2500);
         return;
     }
 
